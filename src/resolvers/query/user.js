@@ -1,7 +1,7 @@
-export const me = () => {
-  return {
-    id: 'dsadsadas312',
-    name: 'test User',
-    email: 'test@test.com'
-  }
+export const me = (_, {}, {user}) => {
+  return user;
+}
+
+export const getuserPosts = (_, {}, {user}) => {
+
 }

@@ -24,6 +24,10 @@ const schema = `
 
   # this schema allows the following mutation:
   type Mutation {
+    updateMe (
+      name: String,
+      email: String
+    ): User
     createPost (
       message: String!
     ): Post

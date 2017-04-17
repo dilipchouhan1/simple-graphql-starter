@@ -1,12 +1,12 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
-import resolverMap from './data/resolvers';
+import resolverMap from './resolvers';
 import { makeExecutableSchema } from 'graphql-tools';
 import fs from 'fs';
 import path from 'path';
 import mongoURL from '../config/db';
-import schema from './data/schema.graphql';
+import schema from './schema.graphql';
 import passport from 'passport';
 import FBStratagy from './auth/facebook';
 import JWTStratagy from './auth/jwt';
