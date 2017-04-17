@@ -27,5 +27,13 @@ For current situation we can use Modify Header chrome plugin to
 - make sure that Modify header Chrome plugin is configured properly otherwise this route will not work. (I know this is bad, I will figure-out this.)
 - go to http://graphql-facebook.herokuapp.com/graphql
 
+# Further Enhancements
+- Add ESLint
+- separate GraphiQL and graphql endpoints so the jwt authntication middlware can be applied only to graphql endpoint only.
+- Replace the GraphiQL interface with a custome one that supports headers so that we do not have to be dependent on the Chrome plugin.
+- Add test-cases
+- Use some promise library(BlueBird) to promesify normal callback apis
+- Figureout a better authentication mechanism so we do not have to use endpoints out of graphql(Like we did).
+
 # Note
 Disable the Modify header Chrome plugin when done evaluting this. otherwise website like Facebook, github etc won't work because these are dependent on the `Authorization` which is tampered by the plugin.
