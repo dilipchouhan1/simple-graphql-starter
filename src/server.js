@@ -6,6 +6,10 @@ import { makeExecutableSchema } from 'graphql-tools';
 import fs from 'fs';
 import path from 'path';
 import mongoURL from '../config/db';
+import {
+  ensureAuthTokenPresent,
+  ensureUserAuthenticated,
+} from './auth/jwt'
 
 const schema = fs.readFileSync(path.join(__dirname, 'data/schema.graphql')).toString();
 
@@ -30,10 +34,24 @@ mongoose.connect(mongoURL, (err) => {
  */
 const app = express();
 const PORT = 4000;
-app.use('/graphql', graphqlHTTP({
-  schema: MySchema,
-  graphiql: true
+
+app.use('*', (req, res, next) => {
+  console.log('Request: ', req);
+  next();
+})
+
+app.use('/graphql', graphqlHTTP(request => {
+  const startTime = Date.now();
+  return {
+    schema: MySchema,
+    graphiql: true,
+    context: { user: request.user },
+    extensions({ document, variables, operationName, result }) {
+      return { runTime: Date.now() - startTime };
+    }
+  };
 }));
+
 app.listen(PORT, () => {
   console.log(`App listening on port: ${PORT}`);
 });
