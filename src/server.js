@@ -6,15 +6,13 @@ import { makeExecutableSchema } from 'graphql-tools';
 import fs from 'fs';
 import path from 'path';
 import mongoURL from '../config/db';
-import {
-  ensureAuthTokenPresent,
-  ensureUserAuthenticated,
-} from './auth/jwt'
 import schema from './data/schema.graphql';
 import passport from 'passport';
-import defineFbStrategy from './auth/facebook';
+import FBStratagy from './auth/facebook';
+import JWTStratagy from './auth/jwt';
+import jwtConfig from '../config/session';
+import jwt from 'jsonwebtoken';
 
-defineFbStrategy(passport);
 // const schema = fs.readFileSync(path.join(__dirname, 'data/schema.graphql')).toString();
 
 /**
@@ -38,29 +36,27 @@ mongoose.connect(mongoURL, (err) => {
  */
 const app = express();
 const PORT = 4000;
+
+passport.use(FBStratagy);
+passport.use(JWTStratagy);
+
 app.use(passport.initialize());
 
-app.use('*', (req, res, next) => {
-//  console.log('Request: ', req);
-  // console.log('Request: ', req);
-  next();
-})
+// app.use('*', (req, res, next) => {
+// //  console.log('Request: ', req);
+//   // console.log('Request: ', req);
+//   next();
+// })
 
-
-
-
+// TODO: Move these to saperate route files.
 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
-// handle the callback after facebook has authenticated the user
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { session: false, failureRedirect: "/" }),
   (req, res) => {
-    res.redirect("/graphql_token?access_token=" + req.user.facebook.token );
-  }
-);
-
-app.get('/graphql_token', (req, res) => {
-    res.send("GraphQL token is " + req.query.access_token + " - <a href=\"/logout\">Log out</a>");
+    var payload = {id: req.user.id};
+    var token = jwt.sign(payload, jwtConfig.secretOrKey);
+    res.json({message: "ok", token: token});
   }
 );
 
