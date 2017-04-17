@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
    unique: true,
  },
  fbAccessToken: String,
+ facebook: {
+   id: String,
+   token: String,
+   name: String
+ }
 });
 
 export default mongoose.model('User', userSchema);
