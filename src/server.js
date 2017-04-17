@@ -35,7 +35,7 @@ mongoose.connect(mongoURL, (err) => {
  * A simple express app that takes our GraphQL schema and serves its API.
  */
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 passport.use(FBStratagy);
 passport.use(JWTStratagy);
