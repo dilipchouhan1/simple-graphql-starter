@@ -49,7 +49,7 @@ Disable the Modify header Chrome plugin when done evaluting this. otherwise webs
 ===============================================================================
 
 Get current user data:
-
+```
 {
   me{
     id,
@@ -61,24 +61,25 @@ Get current user data:
     }
   }
 }
-
+```
 ===============================================================================
 
 get all posts of current user:
-
+```
 {
   allPosts{
     id,
     message
   }
 }
-
+```
 
 # Mutations:
 ===============================================================================
 
 updateMe:
 
+```
 mutation updateMe($email: String, $name: String) {
   updateMe(email: $email, name: $name) {
     id,
@@ -86,56 +87,71 @@ mutation updateMe($email: String, $name: String) {
     email
   }
 }
+```
 
 Variables:
+```
 {
   "name": "test 123"
 }
+```
 
 ===============================================================================
 
 Create new Post:
 
+```
 mutation createPost($message: String!) {
   createPost(message: $message) {
     id,
     message,
   }
 }
+```
 
 variables"
+```
 {
   "message": "your message here"
 }
+```
 
 ===============================================================================
 
 Update post:
 
+```
 mutation updatePost($postId: ID! , $message: String!) {
   updatePost(postId: $postId, message: $message) {
     id,
     message,
   }
 }
+```
 
 variables:
+```
 {
   "postId": "post-id",
   "message": "updated message"
 }
+```
 
 ===============================================================================
 
 Delete Post:
 
+```
 mutation deletePost($postId: ID!) {
   deletePost(postId: $postId) {
     success,
   }
 }
+```
 
 variable:
+```
 {
   "postId": "100368057193176_100826547147327"
 }
+```
