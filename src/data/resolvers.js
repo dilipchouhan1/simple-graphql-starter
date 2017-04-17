@@ -3,31 +3,23 @@ import {
   Authors
 } from './data';
 import { find, filter } from 'lodash';
+import { createPost, updatePost, deletePost } from '../resolvers/mutation/post';
+import { allPosts } from '../resolvers/query/post';
+import { me } from '../resolvers/query/user';
 
 const resolverMap = {
   Query: {
-    posts() {
-      return Posts;
-    },
+    allPosts,
+    me,
   },
   Mutation: {
-    upvotePost(_, { postId }) {
-      const post = find(Posts, { id: parseInt(postId, 10) });
-      if (!post) {
-        throw new Error(`Couldn't find post with id ${postId}`);
-      }
-      post.votes += 1;
-      return post;
-    },
+    createPost,
+    updatePost,
+    deletePost
   },
-  Author: {
-    posts(author) {
-      return filter(Posts, { authorId: author.id });
-    },
-  },
-  Post: {
-    author(post) {
-      return find(Authors, { id: post.authorId });
+  User: {
+    posts() {
+      return [];
     },
   },
 };
