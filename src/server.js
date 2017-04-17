@@ -60,7 +60,7 @@ app.get('/auth/facebook/callback',
   }
 );
 
-app.use('/graphql', graphqlHTTP(request => {
+app.use('/graphql', passport.authenticate('jwt', { session: false }), graphqlHTTP(request => {
   const startTime = Date.now();
   return {
     schema: MySchema,
