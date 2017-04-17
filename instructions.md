@@ -26,3 +26,6 @@ For current situation we can use Modify Header chrome plugin to
 # Navigate to GraphQL explorer
 - make sure that Modify header Chrome plugin is configured properly otherwise this route will not work. (I know this is bad, I will figure-out this.)
 - go to http://graphql-facebook.herokuapp.com/graphql
+
+# Note
+Disable the Modify header Chrome plugin when done evaluting this. otherwise website like Facebook, github etc won't work because these are dependent on the `Authorization` which is tampered by the plugin.
