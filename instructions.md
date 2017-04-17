@@ -1,3 +1,7 @@
+# Introduction
+This App is a mixture of mongoDB and facebook apis, only user account is stored on mongo all other things are directly fetched and mutated on facebook.
+User can login with facebook and get back a JWT which can be used to further perform CRUD on facebook timeline with graphql mutations.
+
 # Obtaining JWT by logging in with facebook
 - Go to http://graphql-facebook.herokuapp.com/auth/facebook
 - login to facebook with
@@ -29,6 +33,8 @@ For current situation we can use Modify Header chrome plugin to
 
 # Further Enhancements
 - Add ESLint
+- Need to add validations and proper error messages.
+- Add logout functionality.
 - separate GraphiQL and graphql endpoints so the jwt authntication middlware can be applied only to graphql endpoint only.
 - Replace the GraphiQL interface with a custome one that supports headers so that we do not have to be dependent on the Chrome plugin.
 - Add test-cases
@@ -37,3 +43,99 @@ For current situation we can use Modify Header chrome plugin to
 
 # Note
 Disable the Modify header Chrome plugin when done evaluting this. otherwise website like Facebook, github etc won't work because these are dependent on the `Authorization` which is tampered by the plugin.
+
+
+# Query:
+===============================================================================
+
+Get current user data:
+
+{
+  me{
+    id,
+    name,
+    email,
+    posts{
+      id,
+      message
+    }
+  }
+}
+
+===============================================================================
+
+get all posts of current user:
+
+{
+  allPosts{
+    id,
+    message
+  }
+}
+
+
+# Mutations:
+===============================================================================
+
+updateMe:
+
+mutation updateMe($email: String, $name: String) {
+  updateMe(email: $email, name: $name) {
+    id,
+    name,
+    email
+  }
+}
+
+Variables:
+{
+  "name": "test 123"
+}
+
+===============================================================================
+
+Create new Post:
+
+mutation createPost($message: String!) {
+  createPost(message: $message) {
+    id,
+    message,
+  }
+}
+
+variables"
+{
+  "message": "your message here"
+}
+
+===============================================================================
+
+Update post:
+
+mutation updatePost($postId: ID! , $message: String!) {
+  updatePost(postId: $postId, message: $message) {
+    id,
+    message,
+  }
+}
+
+variables:
+{
+  "postId": "post-id",
+  "message": "updated message"
+}
+
+===============================================================================
+
+Delete Post:
+
+mutation deletePost($postId: ID!) {
+  deletePost(postId: $postId) {
+    success,
+  }
+}
+
+variable:
+{
+  "postId": "100368057193176_100826547147327"
+}

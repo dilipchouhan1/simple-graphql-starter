@@ -38,9 +38,6 @@ const schema = `
     deletePost (
       postId: ID!
     ): Result
-    login (
-      fbAccessToken: String!
-    ): User
   }
 
   # we need to tell the server which types represent the root query
