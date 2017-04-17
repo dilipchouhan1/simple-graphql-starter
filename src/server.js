@@ -52,13 +52,15 @@ app.use('*', (req, res, next) => {
 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 // handle the callback after facebook has authenticated the user
-app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect : '/zvxfasd',
-  failureRedirect : '/'
-}));
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { session: false, failureRedirect: "/" }),
+  (req, res) => {
+    res.redirect("/graphql_token?access_token=" + req.user.facebook.token );
+  }
+);
 
-app.get('/profile', (req, res) => {
-    res.send("LOGGED IN as " + req.user.facebookId + " - <a href=\"/logout\">Log out</a>");
+app.get('/graphql_token', (req, res) => {
+    res.send("GraphQL token is " + req.query.access_token + " - <a href=\"/logout\">Log out</a>");
   }
 );
 
