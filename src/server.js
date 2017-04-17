@@ -1,9 +1,11 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
+import mongoose from 'mongoose';
 import resolverMap from './data/resolvers';
 import { makeExecutableSchema } from 'graphql-tools';
 import fs from 'fs';
 import path from 'path';
+import mongoURL from '../config/db';
 
 const schema = fs.readFileSync(path.join(__dirname, 'data/schema.graphql')).toString();
 
@@ -13,6 +15,14 @@ const schema = fs.readFileSync(path.join(__dirname, 'data/schema.graphql')).toSt
 const MySchema = makeExecutableSchema({
   typeDefs: schema,
   resolvers: resolverMap,
+});
+
+mongoose.connect(mongoURL, (err) => {
+  if (err) {
+    console.error('Could not connect to MongoDB!');
+    console.error(err);
+  }
+  console.log('successfull connection');
 });
 
 /**
