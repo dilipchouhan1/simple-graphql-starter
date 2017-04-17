@@ -49,7 +49,7 @@ app.use(passport.initialize());
 // })
 
 // TODO: Move these to saperate route files.
-app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email', 'user_posts', 'user_about_me', 'user_friends', 'publish_actions'] }));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { session: false, failureRedirect: "/" }),

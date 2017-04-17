@@ -9,7 +9,11 @@ const schema = `
   type Post {
     id: ID!
     message: String
-    likes: Int
+    created_time: String
+  }
+
+  type Result {
+    success: Boolean
   }
 
   # the schema allows the following query:
@@ -29,7 +33,7 @@ const schema = `
     ): Post
     deletePost (
       postId: ID!
-    ): Post
+    ): Result
     login (
       fbAccessToken: String!
     ): User
