@@ -21,7 +21,9 @@ export default (new FacebookStrategy(fbConfig,
           newUser.facebook.id    = profile.id;
           newUser.facebook.token = token;
           newUser.name  = `${profile.name.givenName} ${profile.name.familyName}`;
-          newUser.email = profile.emails[0].value;
+          newUser.email = profile.emails && profile.emails.length
+                          ? profile.emails[0].value
+                          : null
           newUser.save(function(err) {
             if (err)
               throw err;
