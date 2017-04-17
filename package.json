@@ -11,7 +11,8 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node src/server.js --presets es2015"
+    "start": "babel-node src/server.js --presets es2015",
+    "dev": "nodemon src/server.js --exec babel-node --presets es2015"
   },
   "author": "Michael Paris",
   "license": "ISC",
@@ -27,6 +28,7 @@
     "babel-cli": "^6.24.0",
     "babel-preset-es2015": "^6.24.0",
     "gulp": "^3.9.1",
-    "gulp-serve": "^1.4.0"
+    "gulp-serve": "^1.4.0",
+    "nodemon": "^1.11.0"
   }
 }
