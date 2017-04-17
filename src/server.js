@@ -10,8 +10,9 @@ import {
   ensureAuthTokenPresent,
   ensureUserAuthenticated,
 } from './auth/jwt'
+import schema from './data/schema.graphql';
 
-const schema = fs.readFileSync(path.join(__dirname, 'data/schema.graphql')).toString();
+// const schema = fs.readFileSync(path.join(__dirname, 'data/schema.graphql')).toString();
 
 /**
  * makeExecutableSchema takes your type definitions and field resolvers and returns a GraphQLSchema
@@ -36,7 +37,7 @@ const app = express();
 const PORT = 4000;
 
 app.use('*', (req, res, next) => {
-  console.log('Request: ', req);
+//  console.log('Request: ', req);
   next();
 })
 
