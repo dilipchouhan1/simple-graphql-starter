@@ -16,13 +16,13 @@ Currently the graphiql interfce provided by graphqlHTTP does not support the cus
 For current situation we can use Modify Header chrome plugin to
 
 # install and configure Modify header Chrome plugin:-
-- Go to `https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en` and install it on chrome browser.
+- Go to https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en and install it on chrome browser.
 
 - Set the Header:
   `Authorization` `JWT <token obtained via facebook login>`
 - It will look like
-  `https://gyazo.com/8c613efbda45276ff4cdc20966de18d1`
+  https://gyazo.com/8c613efbda45276ff4cdc20966de18d1
 
 # Navigate to GraphQL explorer
 - make sure that Modify header Chrome plugin is configured properly otherwise this route will not work. (I know this is bad, I will figure-out this.)
-- go to `http://graphql-facebook.herokuapp.com/graphql`
+- go to http://graphql-facebook.herokuapp.com/graphql
